@@ -100,7 +100,7 @@ dkms.conf
 
 # Avoid all videos and csvs, zips
 *.zip
-*.mp4
+#*.mp4
 *.csv
 
 # Avoid all greengrass build files
