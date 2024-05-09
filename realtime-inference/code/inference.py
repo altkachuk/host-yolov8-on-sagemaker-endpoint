@@ -13,6 +13,8 @@ def model_fn(model_dir):
     print("Executing model_fn from inference.py ...")
     env = os.environ
     model = YOLO("/opt/ml/model/code/" + env["YOLOV8_MODEL"])
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
     return model
 
 
@@ -29,8 +31,6 @@ def input_fn(request_body, request_content_type):
 
 def predict_fn(input_data, model):
     print("Executing predict_fn from inference.py ...")
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model.to(device)
     with torch.no_grad():
         result = model(input_data)
     return result
